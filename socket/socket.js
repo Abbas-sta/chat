@@ -12,16 +12,21 @@ const io = new Server(server, {
 	},
 });
 
+
 export const getReceiverSocketId = (receiverId) => {
+	console.log(receiverId)
+	console.log("anything: ",userSocketMap,"userSocketMap", userSocketMap[receiverId])
 	return userSocketMap[receiverId];
 };
 
-const userSocketMap = {}; // {userId: socketId}
+ // {userId: socketId}
 
+ const userSocketMap = {};
 io.on("connection", (socket) => {
 	console.log("a user connected", socket.id);
 
 	const userId = socket.handshake.query.userId;
+	console.log("fdsfsdfjsdk", userId, "socket.handshake.query.userId",socket.handshake.query.userId, userSocketMap[userId], "Object.keys(userSocketMap)",Object.keys(userSocketMap))
 	if (userId != "undefined") userSocketMap[userId] = socket.id;
 
 	// io.emit() is used to send events to all the connected clients
